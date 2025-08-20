@@ -1,34 +1,687 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Sudoku - 9x9 Number Game Privacy Policy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku - Privacy Policy & Support</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        h1, h2 { color: #333; }
+        /* CSS Variables for Light and Dark Themes */
+        :root {
+            --background: #F0F0F3;
+            --surface: #F0F0F3;
+            --text: #2C2C2E;
+            --text-secondary: #6D6D7D;
+            --text-disabled: #AEAEB2;
+            --primary: #007AFF;
+            --secondary: #5856D6;
+            --success: #34C759;
+            --warning: #FF9500;
+            --error: #FF3B30;
+            --shadow-dark: #D1D1D6;
+            --shadow-light: #FFFFFF;
+            --border: #E5E5EA;
+        }
+
+        [data-theme="dark"] {
+            --background: #1C1C1E;
+            --surface: #2C2C2E;
+            --text: #FFFFFF;
+            --text-secondary: #AEAEB2;
+            --text-disabled: #6D6D7D;
+            --primary: #0A84FF;
+            --secondary: #5E5CE6;
+            --success: #30D158;
+            --warning: #FF9F0A;
+            --error: #FF453A;
+            --shadow-dark: #000000;
+            --shadow-light: #3A3A3C;
+            --border: #38383A;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 32px 24px;
+            background: var(--surface);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .app-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .app-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+        }
+
+        .theme-toggle:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+            background: var(--surface);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .nav-button {
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+        }
+
+        .nav-button:hover {
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .nav-button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Content Sections */
+        .section {
+            display: none;
+            margin-bottom: 32px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 32px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] .card {
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            margin-top: 24px;
+        }
+
+        h2:first-child {
+            margin-top: 0;
+        }
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+            margin-top: 16px;
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .highlight {
+            background: var(--primary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .contact-info {
+            background: var(--primary);
+            color: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin: 24px 0;
+        }
+
+        .contact-info h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .contact-email {
+            font-family: 'Monaco', 'Menlo', monospace;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 14px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 8px 0;
+            font-weight: 500;
+        }
+
+        .steps {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            padding: 20px 20px 20px 32px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .steps ol {
+            margin-left: 0;
+            padding-left: 20px;
+        }
+
+        .version-info {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 48px;
+            padding: 16px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            .header {
+                padding: 20px;
+                margin-bottom: 32px;
+            }
+
+            .app-title {
+                font-size: 28px;
+            }
+
+            .app-subtitle {
+                font-size: 16px;
+            }
+
+            .theme-toggle {
+                top: 16px;
+                right: 16px;
+                padding: 10px;
+            }
+
+            .nav {
+                gap: 12px;
+            }
+
+            .nav-button {
+                padding: 10px 16px;
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Privacy Policy for Sudoku - 9x9 Number Game</h1>
-    <p><strong>Last updated:</strong> July 2025</p>
-    <h2>Information We Collect</h2>
-    <p>Our app stores the following data locally on your device:</p>
-    <ul>
-        <li>Game progress and saved puzzles</li>
-        <li>App settings and theme preferences</li>
-        <li>Game statistics and completion times</li>
-    </ul>
-    <h2>How We Use Information</h2>
-    <p>All data is used solely to provide app functionality:</p>
-    <ul>
-        <li>Save and restore your game progress</li>
-        <li>Remember your preferred settings</li>
-        <li>Display your puzzle statistics</li>
-    </ul>
-    <h2>Data Sharing</h2>
-    <p>We do not share, sell, or transmit any of your data to third parties.</p>
-    <h2>Data Storage</h2>
-    <p>All data is stored locally on your device. You can delete this data by uninstalling the app.</p>
-    <h2>Contact Us</h2>
-    <p>If you have questions about this privacy policy, contact us at: sudokunumbergame@proton.me</p>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span id="theme-icon">🌙</span>
+    </button>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="app-title">Sudoku</h1>
+            <p class="app-subtitle">Privacy Policy & Support</p>
+        </header>
+
+        <nav class="nav">
+            <button class="nav-button active" onclick="showSection('privacy')">Privacy Policy</button>
+            <button class="nav-button" onclick="showSection('support')">Support</button>
+            <button class="nav-button" onclick="showSection('feedback')">Feedback</button>
+            <button class="nav-button" onclick="showSection('terms')">Terms of Use</button>
+        </nav>
+
+        <!-- Privacy Policy Section -->
+        <section id="privacy" class="section active">
+            <div class="card">
+                <h1>Privacy Policy</h1>
+                <p><strong>Last updated:</strong> August 2024</p>
+                
+                <h2>Overview</h2>
+                <p>This Privacy Policy describes how Sudoku ("we", "our", or "us") collects, uses, and protects your information when you use our mobile application.</p>
+                
+                <h2>Information We Collect</h2>
+                
+                <h3>Information You Provide</h3>
+                <ul>
+                    <li><strong>Feedback Communications:</strong> When you send feedback through the app, we collect your email address and the content you provide</li>
+                    <li><strong>Support Requests:</strong> Any information you voluntarily provide when contacting our support team</li>
+                </ul>
+                
+                <h3>Automatically Collected Information</h3>
+                <ul>
+                    <li><strong>App Version:</strong> We automatically include your app version in feedback emails for troubleshooting purposes</li>
+                    <li><strong>Game Data:</strong> Your game settings, preferences, and progress are stored locally on your device only</li>
+                </ul>
+                
+                <h2>How We Use Your Information</h2>
+                <ul>
+                    <li>To respond to your feedback and support requests</li>
+                    <li>To improve the app based on user feedback</li>
+                    <li>To fix bugs and technical issues</li>
+                    <li>To develop new features based on user suggestions</li>
+                </ul>
+                
+                <h2>Data Storage and Security</h2>
+                <ul>
+                    <li><strong>Local Storage:</strong> All game data (progress, settings, statistics) is stored locally on your device</li>
+                    <li><strong>No Cloud Sync:</strong> We do not store your game data on our servers</li>
+                    <li><strong>Feedback Data:</strong> Feedback emails are retained for up to 2 years for quality improvement purposes</li>
+                    <li><strong>Security:</strong> We implement appropriate technical and organizational measures to protect your data</li>
+                </ul>
+                
+                <h2>Data Sharing</h2>
+                <p>We do not sell, trade, or share your personal information with third parties except:</p>
+                <ul>
+                    <li>When required by law</li>
+                    <li>To protect our rights or the safety of others</li>
+                    <li>With your explicit consent</li>
+                </ul>
+                
+                <h2>Your Rights</h2>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Request deletion of your feedback data</li>
+                    <li>Access information we have about you</li>
+                    <li>Correct inaccurate information</li>
+                    <li>Withdraw consent for future communications</li>
+                </ul>
+                
+                <h2>Children's Privacy</h2>
+                <p>Our app is suitable for all ages. We do not knowingly collect personal information from children under 13 without parental consent.</p>
+                
+                <h2>Changes to This Policy</h2>
+                <p>We may update this Privacy Policy from time to time. We will notify users of any material changes by updating the "Last updated" date.</p>
+                
+                <div class="contact-info">
+                    <h3>Contact Us</h3>
+                    <p>If you have questions about this Privacy Policy, please contact us:</p>
+                    <div class="contact-email">support@sudokuservice.com</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="section">
+            <div class="card">
+                <h1>Support</h1>
+                
+                <h2>Getting Help</h2>
+                <p>We're here to help you enjoy the best Sudoku experience possible. Here are the ways you can get support:</p>
+                
+                <h2>In-App Feedback</h2>
+                <div class="steps">
+                    <p><strong>To send feedback directly from the app:</strong></p>
+                    <ol>
+                        <li>Open the app and go to <span class="highlight">Settings</span></li>
+                        <li>Tap <span class="highlight">Feedback</span></li>
+                        <li>Select <span class="highlight">Send Feedback</span></li>
+                        <li>Choose your feedback type:
+                            <ul>
+                                <li><strong>Bug Report:</strong> For issues and problems</li>
+                                <li><strong>Feature Request:</strong> For new ideas and suggestions</li>
+                                <li><strong>General Feedback:</strong> For any other comments</li>
+                            </ul>
+                        </li>
+                        <li>Your email app will open with a pre-filled template</li>
+                        <li>Add your specific details and send</li>
+                    </ol>
+                </div>
+                
+                <h2>Direct Email Support</h2>
+                <div class="contact-info">
+                    <h3>Email Us Directly</h3>
+                    <p>You can also email us directly at:</p>
+                    <div class="contact-email">support@sudokuservice.com</div>
+                    <p><strong>Response Time:</strong> We typically respond within 2-3 business days</p>
+                </div>
+                
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3>Game Issues</h3>
+                <p><strong>Q: The app is crashing or not responding</strong><br>
+                A: Try closing and reopening the app. If the issue persists, restart your device and ensure you have the latest app version installed.</p>
+                
+                <p><strong>Q: I lost my game progress</strong><br>
+                A: Game progress is saved locally on your device. If you've deleted the app or switched devices, unfortunately the progress cannot be recovered as we don't store data in the cloud.</p>
+                
+                <p><strong>Q: How do I use notes/candidates?</strong><br>
+                A: Tap the pencil icon in the bottom controls to toggle notes mode. In notes mode, tapping numbers will add small candidate numbers to cells instead of filling them.</p>
+                
+                <h3>Settings & Features</h3>
+                <p><strong>Q: How do I change the theme?</strong><br>
+                A: Go to Settings > Appearance > Theme. You can choose between Light, Dark, or Auto (follows system theme).</p>
+                
+                <p><strong>Q: Can I turn off vibrations?</strong><br>
+                A: Yes, go to Settings > Haptics and toggle "Haptic Feedback" off.</p>
+                
+                <p><strong>Q: What are Developer Options?</strong><br>
+                A: These are advanced features for experienced users. They can be unlocked through a secret sequence in the About section.</p>
+                
+                <h2>Technical Requirements</h2>
+                <ul>
+                    <li><strong>iOS:</strong> Requires iOS 13.0 or later</li>
+                    <li><strong>Android:</strong> Requires Android 8.0 (API level 26) or later</li>
+                    <li><strong>Storage:</strong> Approximately 50MB of free space</li>
+                    <li><strong>Internet:</strong> Not required for gameplay (offline app)</li>
+                </ul>
+                
+                <h2>Troubleshooting Tips</h2>
+                <ul>
+                    <li>Ensure you have the latest version of the app installed</li>
+                    <li>Restart the app if you experience any issues</li>
+                    <li>Free up device storage if the app is running slowly</li>
+                    <li>Check that your device meets the minimum requirements</li>
+                    <li>Try turning off other apps to free up memory</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Feedback Section -->
+        <section id="feedback" class="section">
+            <div class="card">
+                <h1>Send Feedback</h1>
+                
+                <h2>We Value Your Input</h2>
+                <p>Your feedback helps us improve the Sudoku experience for everyone. Whether you've found a bug, have an idea for a new feature, or just want to share your thoughts, we'd love to hear from you!</p>
+                
+                <h2>Types of Feedback</h2>
+                
+                <h3>🐛 Bug Reports</h3>
+                <p>Found something that's not working correctly? Help us fix it by reporting:</p>
+                <ul>
+                    <li>What you were trying to do</li>
+                    <li>What actually happened</li>
+                    <li>Steps to reproduce the issue</li>
+                    <li>Your device model and app version</li>
+                </ul>
+                
+                <h3>💡 Feature Requests</h3>
+                <p>Have an idea that would make the app better? We'd love to hear about:</p>
+                <ul>
+                    <li>New solving techniques or hints</li>
+                    <li>Additional customization options</li>
+                    <li>Accessibility improvements</li>
+                    <li>Quality of life enhancements</li>
+                </ul>
+                
+                <h3>💬 General Feedback</h3>
+                <p>Share your overall experience:</p>
+                <ul>
+                    <li>What you love about the app</li>
+                    <li>Areas for improvement</li>
+                    <li>Suggestions for new puzzle types</li>
+                    <li>User interface feedback</li>
+                </ul>
+                
+                <h2>How to Send Feedback</h2>
+                
+                <div class="steps">
+                    <p><strong>Method 1: In-App Feedback (Recommended)</strong></p>
+                    <ol>
+                        <li>Open Sudoku app</li>
+                        <li>Go to Settings → Feedback</li>
+                        <li>Tap "Send Feedback"</li>
+                        <li>Choose your feedback type</li>
+                        <li>Complete the pre-filled email template</li>
+                    </ol>
+                </div>
+                
+                <div class="contact-info">
+                    <h3>Method 2: Direct Email</h3>
+                    <p>Send your feedback directly to:</p>
+                    <div class="contact-email">feedback@sudokuservice.com</div>
+                </div>
+                
+                <h2>What Happens Next?</h2>
+                <ul>
+                    <li><strong>Acknowledgment:</strong> We'll confirm receipt of your feedback within 24 hours</li>
+                    <li><strong>Review:</strong> Our team reviews all feedback carefully</li>
+                    <li><strong>Response:</strong> We typically respond within 2-3 business days</li>
+                    <li><strong>Implementation:</strong> Great suggestions may appear in future updates!</li>
+                </ul>
+                
+                <h2>Feedback Guidelines</h2>
+                <ul>
+                    <li>Be specific and detailed in your descriptions</li>
+                    <li>Include screenshots if reporting visual issues</li>
+                    <li>One issue or suggestion per email when possible</li>
+                    <li>Be respectful and constructive</li>
+                    <li>Include your app version for technical issues</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Terms Section -->
+        <section id="terms" class="section">
+            <div class="card">
+                <h1>Terms of Use</h1>
+                <p><strong>Last updated:</strong> August 2024</p>
+                
+                <h2>Acceptance of Terms</h2>
+                <p>By downloading, installing, or using the Sudoku mobile application, you agree to be bound by these Terms of Use.</p>
+                
+                <h2>License to Use</h2>
+                <p>We grant you a limited, non-exclusive, non-transferable license to use the Sudoku app for personal, non-commercial purposes.</p>
+                
+                <h2>Permitted Uses</h2>
+                <ul>
+                    <li>Play Sudoku puzzles for entertainment</li>
+                    <li>Customize app settings for your preferences</li>
+                    <li>Share your achievements with friends</li>
+                    <li>Provide feedback to improve the app</li>
+                </ul>
+                
+                <h2>Prohibited Uses</h2>
+                <p>You may not:</p>
+                <ul>
+                    <li>Reverse engineer, decompile, or disassemble the app</li>
+                    <li>Use the app for commercial purposes without permission</li>
+                    <li>Attempt to hack, modify, or exploit the app</li>
+                    <li>Remove or alter copyright notices</li>
+                    <li>Use automated systems to interact with the app</li>
+                </ul>
+                
+                <h2>Intellectual Property</h2>
+                <p>The Sudoku app and all its content, features, and functionality are owned by us and are protected by international copyright, trademark, and other intellectual property laws.</p>
+                
+                <h2>User-Generated Content</h2>
+                <p>When you send feedback or communicate with us:</p>
+                <ul>
+                    <li>You retain ownership of your original content</li>
+                    <li>You grant us permission to use your feedback to improve the app</li>
+                    <li>We may reference your suggestions in development</li>
+                    <li>Your personal information remains protected per our Privacy Policy</li>
+                </ul>
+                
+                <h2>Disclaimers</h2>
+                <p>The app is provided "as is" without warranties of any kind. We do not guarantee:</p>
+                <ul>
+                    <li>Uninterrupted or error-free operation</li>
+                    <li>Compatibility with all devices</li>
+                    <li>Preservation of user data across updates</li>
+                    <li>Availability of specific features</li>
+                </ul>
+                
+                <h2>Limitation of Liability</h2>
+                <p>To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the app.</p>
+                
+                <h2>Updates and Modifications</h2>
+                <ul>
+                    <li>We may update the app periodically</li>
+                    <li>Updates may change features or functionality</li>
+                    <li>Continued use constitutes acceptance of changes</li>
+                    <li>We may modify these terms with notice to users</li>
+                </ul>
+                
+                <h2>Termination</h2>
+                <p>You may stop using the app at any time by deleting it from your device. We may terminate your access if you violate these terms.</p>
+                
+                <h2>Contact Information</h2>
+                <div class="contact-info">
+                    <h3>Questions About Terms</h3>
+                    <p>If you have questions about these Terms of Use:</p>
+                    <div class="contact-email">support@sudokuservice.com</div>
+                </div>
+            </div>
+        </section>
+
+        <div class="version-info">
+            <p>Sudoku App Version 2.1.0 | © 2024</p>
+            <p>This page is optimized for the Sudoku app's visual design</p>
+        </div>
+    </div>
+
+    <script>
+        // Theme Management
+        function getTheme() {
+            return localStorage.getItem('theme') || 
+                   (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+
+        function setTheme(theme) {
+            localStorage.setItem('theme', theme);
+            document.documentElement.setAttribute('data-theme', theme);
+            document.getElementById('theme-icon').textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        function toggleTheme() {
+            const currentTheme = getTheme();
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        }
+
+        // Navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all nav buttons
+            document.querySelectorAll('.nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Update URL hash
+            window.location.hash = sectionId;
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            setTheme(getTheme());
+            
+            // Handle hash navigation
+            if (window.location.hash) {
+                const sectionId = window.location.hash.substring(1);
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    showSection(sectionId);
+                }
+            }
+        });
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                setTheme(e.matches ? 'dark' : 'light');
+            }
+        });
+    </script>
 </body>
 </html>
